@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	pb "github.com/LoptrThor/middle_trpc/pb"
-	"log"
 	"trpc.group/trpc-go/trpc-go"
+	"trpc.group/trpc-go/trpc-go/log"
 )
 
 func main() {
@@ -23,9 +23,10 @@ func (s *accImpl) OpenCheck(
 	ctx context.Context,
 	req *pb.Req,
 ) (*pb.Rsp, error) {
-
-	log.Fatal(req)
+	log.Info(req.Req)
 	rsp := &pb.Rsp{}
 	rsp.Rsp = "222"
+	rsp.ErrCode = 0
+	rsp.ErrMsg = "ok"
 	return rsp, nil
 }

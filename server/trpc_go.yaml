@@ -5,5 +5,5 @@ server:  # Server configuration.
       # nic: eth0
       port: 8000  # Service listening port, can use placeholder ${port}.
       network: tcp  # Network listening type: tcp or udp.
-      protocol: http  # Application layer protocol: trpc or http.
+      protocol: trpc  # Application layer protocol: trpc or http.
       timeout: 1000  # Maximum processing time for requests in milliseconds.
