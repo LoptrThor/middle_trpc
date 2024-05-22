@@ -21,11 +21,11 @@ type accImpl struct {
 
 func (s *accImpl) OpenCheck(
 	ctx context.Context,
-	req *pb.Request,
-) (*pb.Reply, error) {
+	req *pb.Req,
+) (*pb.Rsp, error) {
 
 	log.Fatal(req)
-	rsp := &pb.Reply{}
+	rsp := &pb.Rsp{}
 	rsp.Rsp = "222"
 	return rsp, nil
 }

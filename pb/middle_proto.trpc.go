@@ -19,17 +19,17 @@ import (
 
 // AccService defines service.
 type AccService interface {
-	OpenCheck(ctx context.Context, req *Request) (*Reply, error) // @alias=/Acc/OpenCheck
+	OpenCheck(ctx context.Context, req *Req) (*Rsp, error) // @alias=/Acc/OpenCheck
 }
 
 func AccService_OpenCheck_Handler(svr interface{}, ctx context.Context, f server.FilterFunc) (interface{}, error) {
-	req := &Request{}
+	req := &Req{}
 	filters, err := f(req)
 	if err != nil {
 		return nil, err
 	}
 	handleFunc := func(ctx context.Context, reqbody interface{}) (interface{}, error) {
-		return svr.(AccService).OpenCheck(ctx, reqbody.(*Request))
+		return svr.(AccService).OpenCheck(ctx, reqbody.(*Req))
 	}
 
 	var rsp interface{}
@@ -63,7 +63,7 @@ func RegisterAccService(s server.Service, svr AccService) {
 
 type UnimplementedAcc struct{}
 
-func (s *UnimplementedAcc) OpenCheck(ctx context.Context, req *Request) (*Reply, error) {
+func (s *UnimplementedAcc) OpenCheck(ctx context.Context, req *Req) (*Rsp, error) {
 	return nil, errors.New("rpc OpenCheck of service Acc is not implemented")
 }
 
@@ -75,7 +75,7 @@ func (s *UnimplementedAcc) OpenCheck(ctx context.Context, req *Request) (*Reply,
 
 // AccClientProxy defines service client proxy
 type AccClientProxy interface {
-	OpenCheck(ctx context.Context, req *Request, opts ...client.Option) (rsp *Reply, err error) // @alias=/Acc/OpenCheck
+	OpenCheck(ctx context.Context, req *Req, opts ...client.Option) (rsp *Rsp, err error) // @alias=/Acc/OpenCheck
 }
 
 type AccClientProxyImpl struct {
@@ -87,7 +87,7 @@ var NewAccClientProxy = func(opts ...client.Option) AccClientProxy {
 	return &AccClientProxyImpl{client: client.DefaultClient, opts: opts}
 }
 
-func (c *AccClientProxyImpl) OpenCheck(ctx context.Context, req *Request, opts ...client.Option) (*Reply, error) {
+func (c *AccClientProxyImpl) OpenCheck(ctx context.Context, req *Req, opts ...client.Option) (*Rsp, error) {
 	ctx, msg := codec.WithCloneMessage(ctx)
 	defer codec.PutBackMessage(msg)
 	msg.WithClientRPCName("/trpc.app.server.Acc/OpenCheck")
@@ -100,7 +100,7 @@ func (c *AccClientProxyImpl) OpenCheck(ctx context.Context, req *Request, opts .
 	callopts := make([]client.Option, 0, len(c.opts)+len(opts))
 	callopts = append(callopts, c.opts...)
 	callopts = append(callopts, opts...)
-	rsp := &Reply{}
+	rsp := &Rsp{}
 	if err := c.client.Invoke(ctx, req, rsp, callopts...); err != nil {
 		return nil, err
 	}
