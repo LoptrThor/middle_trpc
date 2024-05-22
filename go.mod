@@ -1,4 +1,4 @@
-module middle_trpc
+module github.com/LoptrThor/middle_trpc
 
 go 1.19
 
