@@ -7,3 +7,10 @@ server:  # Server configuration.
       network: tcp  # Network listening type: tcp or udp.
       protocol: trpc  # Application layer protocol: trpc or http.
       timeout: 1000  # Maximum processing time for requests in milliseconds.
+
+
+client: #客户端调用的后端配置
+  service: #针对单个后端的配置
+    - name: trpc.mysql.opencheck
+      target: ip://root:root@tcp(192.168.31.42:3306)/test_user?charset=utf8&timeout=1s&parseTime=true&interpolateParams=true #mdb使用域名多实例需要加上 &interpolateParams=true
+      timeout: 1000
